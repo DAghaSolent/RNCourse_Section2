@@ -2,7 +2,7 @@ import { useState } from "react";
 import { StyleSheet, View, FlatList } from "react-native";
 
 import GoalItem from "./components/GoalItem";
-import GoalInput from "./components/GoalInput"
+import GoalInput from "./components/GoalInput";
 
 export default function App() {
   const [courseGoals, setCourseGoals] = useState([]);
@@ -14,15 +14,27 @@ export default function App() {
     ]);
   }
 
+  function deleteGoalHandler(id) {
+    // setCourseGoals((currentCourseGoals) => {
+    //   return currentCourseGoals.filter((goal) => goal.id != id);
+    // });
+    console.log("DELETE")
+  }
+
   return (
     <View style={styles.appContainer}>
-      <GoalInput onAddGoal={addGoalHandler}/>
+      <GoalInput onAddGoal={addGoalHandler} />
       <View style={styles.goalsStyle}>
         <FlatList
           data={courseGoals}
           renderItem={(itemData) => {
             itemData.indexs;
-            return <GoalItem text={itemData.item.text} />;
+            return (
+              <GoalItem
+                text={itemData.item.text}
+                onDeleteItem={deleteGoalHandler}
+              />
+            );
           }}
           keyExtractor={(item, index) => {
             return item.id;
